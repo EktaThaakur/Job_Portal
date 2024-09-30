@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendingMail;
 use App\Models\application;
 use App\Models\Job;
 use App\Models\Query;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 //  namespace App\Http\Controllers\Validator;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -94,6 +96,8 @@ class JobController extends Controller
             'subject' => $request->input('subject'),
             'message' => $request->input('message'),
         ]);
+
+        Mail::to($request->email)->send(new SendingMail($request));
         return redirect()->back()->with('success', 'Your Quiry is  submitted successfully!');
     }
     // public function job(Request $request)
@@ -128,6 +132,9 @@ class JobController extends Controller
 
         return view('searchlist_data', compact('jobs'));
     }
-
+    public function email_send(Request $request)
+    {
+        return view('email_message');
+    }
 
 }

@@ -36,4 +36,5 @@ Route::post('/query_submission', [JobController::class, 'query_submit']);
 Route::get('/search', [JobController::class, 'search']);
 // Route::get('pagination', [JobController::class, 'pagination']);
 // Route::get('/search', [JobController::class, 'search']);
+Route::get('/email-message', [JobController::class, 'email_send']);
 require __DIR__ . '/auth.php';
